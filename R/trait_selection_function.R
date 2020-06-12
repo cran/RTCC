@@ -18,13 +18,6 @@
 #'
 #' @param traits_columns Table 1 column numbers where different trait values appear.
 #'
-#' @param min_env_col Table 1 column number indicating the minimum value of the environmental variable were each
-#' organism has been observed.
-#'
-#' @param max_env_col Table 1 column number indicating the maximum value of the environmental variable were each
-#' organism has been observed.
-#'
-#' @param env_var_col Table 2 column number indicating the tested environmental variable.
 #'
 #' @param repetitions Number of simulated synthetic communities distributions.
 #'
@@ -37,26 +30,23 @@
 #' data(group_information)
 #' data(table_presence_absence)
 #' data(metadata)
-#' rtcc1(group_information, table_presence_absence, metadata, 2:11, 12, 12, 2, 100)
+#' rtcc1(group_information, table_presence_absence, metadata, 2:11, 100)
 #' }
 #'
 #'
 #' @export
 
 
-rtcc1 <- function(table1, table2, table3, traits_columns, min_env_col, max_env_col, env_var_col, repetitions){
+rtcc1 <- function(table1, table2, table3, traits_columns, repetitions){
 
   dataset <- table1
   dataset <- as.data.frame(dataset)
   table_presence_absence <- table2
   metadata <- table3
 
-  colnames(dataset)[min_env_col] <- "min"
-  colnames(dataset)[max_env_col] <- "max"
   colnames(dataset)[1] <- "tax"
 
   colnames(metadata)[1] <- "sample_ID"
-  colnames(metadata)[env_var_col] <- "env_variable"
 
   colnames(table_presence_absence)[1] <- "tax"
 
@@ -64,7 +54,6 @@ rtcc1 <- function(table1, table2, table3, traits_columns, min_env_col, max_env_c
   l_pool <- length(pool)
   richnes <- vegan::specnumber(t(table_presence_absence[,-1]))
 
-  metadata$sample_ID <- factor(metadata$sample_ID, levels = unique(metadata$sample_ID[order(metadata$env_variable)]))
   local_communities <- metadata$sample_ID
 
   y <- 1

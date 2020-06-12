@@ -1,7 +1,7 @@
 Package: RTCC
 Type: Package
 Title: Detecting Trait Clustering in Environmental Gradients
-Version: 0.1.0
+Version: 0.1.1
 Author: Mateu Menendez-Serra, Vicente J. Ontiveros, Emilio O. Casamayor, David Alonso
 Maintainer: Mateu Menendez-Serra <mateu.menendez@ceab.csic.es>
 Description: The Randomized Trait Community Clustering method (Triado-Margarit et al., 2019,
@@ -19,7 +19,7 @@ Imports: matrixStats, vegan, Rcpp
 Suggests: testthat, knitr, rmarkdown
 LinkingTo: testthat, Rcpp
 NeedsCompilation: yes
-Packaged: 2020-03-30 20:04:42 UTC; macbookair
+Packaged: 2020-06-12 17:17:37 UTC; macbookair
 Depends: R (>= 3.5.0)
 Repository: CRAN
-Date/Publication: 2020-03-31 10:00:13 UTC
+Date/Publication: 2020-06-12 17:50:03 UTC

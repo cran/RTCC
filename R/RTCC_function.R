@@ -66,7 +66,6 @@ rtcc2 <- function(table1, table2, table3, species_abundances, trait_col_number, 
   table_presence_absence <- table2
   metadata <- table3
 
-  colnames(dataset)[trait_col_number] <- "trait"
   colnames(dataset)[min_env_col] <- "min"
   colnames(dataset)[max_env_col] <- "max"
   colnames(dataset)[1] <- "tax"
@@ -75,13 +74,14 @@ rtcc2 <- function(table1, table2, table3, species_abundances, trait_col_number, 
   colnames(metadata)[env_var_col] <- "env_variable"
 
   colnames(table_presence_absence)[1] <- "tax"
+  table_presence_absence <- table_presence_absence[order(table_presence_absence$tax),]
 
   pool <- as.vector(dataset$tax)
   l_pool <- length(pool)
   richnes <- vegan::specnumber(t(table_presence_absence[,-1]))
-  trait <- dataset$trait
+  trait <- dataset[,trait_col_number]
 
-  metadata$sample_ID <- factor(metadata$sample_ID, levels = unique(metadata$sample_ID[order(metadata$env_variable)]))
+  metadata <- metadata[order(metadata$env_variable, decreasing = T),]
   local_communities <- metadata$sample_ID
 
   # Calculate MPDs for observed communities
@@ -166,7 +166,7 @@ rtcc2 <- function(table1, table2, table3, species_abundances, trait_col_number, 
         MPDs <- rep(NA, (repetitions*h_iteration))
         rich_m <- richnes[m]
         ncomps <- rich_m * (rich_m-1)
-        sample_salinity_vector <- rep(as.numeric(metadata[metadata$sample_ID == m, 2]), l_pool)
+        sample_salinity_vector <- rep(as.numeric(metadata[metadata$sample_ID == m, env_var_col]), l_pool)
         presence <- as.numeric(dataset$min <= sample_salinity_vector & dataset$max >= sample_salinity_vector)
         prob_vector <- species_presence * presence
         MPDs <- sample_and_mpd(repetitions, h_iteration, trait, l_pool, rich_m, prob_vector, MPDs, ncomps)
@@ -198,7 +198,7 @@ rtcc2 <- function(table1, table2, table3, species_abundances, trait_col_number, 
         MPDs <- rep(NA, (repetitions*h_iteration))
         rich_m <- richnes[m]
         ncomps <- rich_m * (rich_m-1)
-        sample_salinity_vector <- rep(as.numeric(metadata[metadata$sample_ID == m, 2]), l_pool)
+        sample_salinity_vector <- rep(as.numeric(metadata[metadata$sample_ID == m, env_var_col]), l_pool)
         presence <- as.numeric(dataset$min <= sample_salinity_vector & dataset$max >= sample_salinity_vector)
         prob_vector <- species_presence * presence * species_abundances
         MPDs <- sample_and_mpd(repetitions, h_iteration, trait, l_pool, rich_m, prob_vector, MPDs, ncomps)

@@ -4,16 +4,7 @@
 \alias{rtcc1}
 \title{Trait selection}
 \usage{
-rtcc1(
-  table1,
-  table2,
-  table3,
-  traits_columns,
-  min_env_col,
-  max_env_col,
-  env_var_col,
-  repetitions
-)
+rtcc1(table1, table2, table3, traits_columns, repetitions)
 }
 \arguments{
 \item{table1}{A data frame containing organisms names on the first column and its trait values on the
@@ -27,14 +18,6 @@ sample names as consecutive colnames.}
 consecutive ones.}
 
 \item{traits_columns}{Table 1 column numbers where different trait values appear.}
-
-\item{min_env_col}{Table 1 column number indicating the minimum value of the environmental variable were each
-organism has been observed.}
-
-\item{max_env_col}{Table 1 column number indicating the maximum value of the environmental variable were each
-organism has been observed.}
-
-\item{env_var_col}{Table 2 column number indicating the tested environmental variable.}
 
 \item{repetitions}{Number of simulated synthetic communities distributions.}
 }
@@ -55,7 +38,7 @@ selecting organisms form the global pool.
 data(group_information)
 data(table_presence_absence)
 data(metadata)
-rtcc1(group_information, table_presence_absence, metadata, 2:11, 12, 12, 2, 100)
+rtcc1(group_information, table_presence_absence, metadata, 2:11, 100)
 }
 
 

@@ -6,5 +6,5 @@ test_that("rtcc1", {
   data(group_information)
   RNGversion("3.5")
   set.seed(999999)
-  expect_equal(sum(rtcc1(group_information, table_presence_absence, metadata, 2:11, 12, 12, 2, 10)), 306.7)
+  expect_equal(sum(rtcc1(group_information, table_presence_absence, metadata, 2:11, 10)), 306.7)
 })
